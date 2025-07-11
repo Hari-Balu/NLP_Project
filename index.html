@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Summarizer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --glass-bg: rgba(255, 255, 255, 0.15);
+        --glass-blur: blur(18px);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --primary: #0071e3;
+      }
+
+      * {
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: linear-gradient(135deg, #e0e7ff, #fefefe);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+      }
+
+      .container {
+        background: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        width: 100%;
+        max-width: 700px;
+      }
+
+      h1 {
+        font-size: 26px;
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 600;
+        color: #111;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 160px;
+        padding: 16px;
+        border-radius: 15px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        resize: vertical;
+        transition: all 0.3s ease;
+        background-color: white;
+      }
+
+      textarea:focus {
+        border-color: var(--primary);
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2);
+      }
+
+      button {
+        display: block;
+        width: 100%;
+        margin-top: 25px;
+        padding: 14px;
+        font-size: 16px;
+        background-color: var(--primary);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #005bb5;
+      }
+
+      .result-box {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #ffffffcc;
+        border-radius: 12px;
+        border-left: 5px solid var(--primary);
+        font-size: 15.5px;
+        color: #222;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>📝 Text Summarization Tool</h1>
+
+      <form action="{{ url_for('summarize') }}" method="post">
+        <textarea
+          name="input_text"
+          placeholder="Paste your long paragraph here..."
+          required
+        ></textarea>
+        <button type="submit">🚀 Summarize Text</button>
+      </form>
+
+      {% if summary %}
+      <div class="result-box">
+        <strong>Summary:</strong><br />
+        {{ summary }}
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
